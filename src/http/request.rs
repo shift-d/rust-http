@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[doc(hidden)]
 mod tests;
 
 use std::fmt;
