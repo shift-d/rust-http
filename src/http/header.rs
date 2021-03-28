@@ -6,10 +6,9 @@ pub struct Header {
 }
 
 impl Header {
-    pub fn new(name: &str, value: &str) -> Header {
+    pub fn new(name: String, value: String) -> Header {
         Header {
-            name: String::from(name),
-            value: String::from(value),
+            name, value,
         }
     }
 }

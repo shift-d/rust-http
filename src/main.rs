@@ -1,17 +1,18 @@
 mod http;
 
 use http::request::{
-    Request,
-    RequestMethod
+    RequestMethod,
+    RequestBuilder
 };
-use http::header::Header;
 
 fn main() {
-    let mut req = Request::new(RequestMethod::POST);
-    req.target = String::from("/");
-    req.headers.push(Header::new("Content-Type", "application/json"));
-    req.headers.push(Header::new("Content-Length", "16"));
-    req.body = String::from("{\"key\": \"value\"}");
+    let req = RequestBuilder::new()
+        .set_method(RequestMethod::POST)
+        .set_target(String::from("/"))
+        .write_header(String::from("Accept"), String::from("text/html"))
+        .write_header(String::from("Accept-Language"), String::from("en-US"))
+        .write_body(String::from("{}"))
+        .get_request();
 
     println!("{}", req.to_http_message());
 }

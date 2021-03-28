@@ -12,7 +12,8 @@ pub enum RequestMethod {
     CONNECT,
     OPTIONS,
     TRACE,
-    PATCH
+    PATCH,
+    UNKNOWN,
 }
 
 impl fmt::Display for RequestMethod {
@@ -22,16 +23,16 @@ impl fmt::Display for RequestMethod {
 }
 
 pub struct Request {
-    pub method: RequestMethod,
-    pub target: String,
-    pub headers: Vec<Header>,
-    pub body: String,
+    method: RequestMethod,
+    target: String,
+    headers: Vec<Header>,
+    body: String,
 }
 
 impl Request {
-    pub fn new(method: RequestMethod) -> Request {
+    pub fn new() -> Request {
         Request {
-            method,
+            method: RequestMethod::UNKNOWN,
             target: String::new(),
             headers: Vec::new(),
             body: String::new(),
@@ -65,5 +66,41 @@ impl Request {
         }
         
         headers_string
+    }
+}
+
+pub struct RequestBuilder {
+    request: Request,
+}
+
+impl RequestBuilder {
+    pub fn new() -> RequestBuilder {
+        RequestBuilder {
+            request: Request::new()
+        }
+    }
+
+    pub fn set_method(mut self, method: RequestMethod) -> Self {
+        self.request.method = method;
+        self
+    }
+
+    pub fn set_target(mut self, target: String) -> Self {
+        self.request.target = target;
+        self
+    }
+
+    pub fn write_header(mut self, name: String, value: String) -> Self {
+        self.request.headers.push(Header::new(name, value));
+        self
+    }
+
+    pub fn write_body(mut self, body: String) -> Self {
+        self.request.body = body;
+        self
+    }
+
+    pub fn get_request(self) -> Request {
+        self.request
     }
 }
