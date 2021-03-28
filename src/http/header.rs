@@ -1,3 +1,5 @@
+use std::fmt;
+
 pub struct Header {
     pub name: String,
     pub value: String,
@@ -10,8 +12,10 @@ impl Header {
             value: String::from(value),
         }
     }
+}
 
-    pub fn to_string(&self) -> String {
-        format!("{}: {}", self.name, self.value)
+impl fmt::Display for Header {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}: {}", self.name, self.value)
     }
 }

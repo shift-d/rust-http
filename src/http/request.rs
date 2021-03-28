@@ -1,16 +1,37 @@
+use std::fmt;
 use super::header::Header;
 
+#[derive(Debug)]
+#[allow(dead_code)]
+pub enum RequestMethod {
+    GET,
+    HEAD,
+    POST,
+    PUT,
+    DELETE,
+    CONNECT,
+    OPTIONS,
+    TRACE,
+    PATCH
+}
+
+impl fmt::Display for RequestMethod {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
 pub struct Request {
-    pub method: String,
+    pub method: RequestMethod,
     pub target: String,
     pub headers: Vec<Header>,
     pub body: String,
 }
 
 impl Request {
-    pub fn new() -> Request {
+    pub fn new(method: RequestMethod) -> Request {
         Request {
-            method: String::new(),
+            method,
             target: String::new(),
             headers: Vec::new(),
             body: String::new(),
@@ -39,7 +60,7 @@ impl Request {
             if headers_string == String::new() {
                 headers_string = header.to_string();
             } else {
-                headers_string = format!("{}\r\n{}", headers_string, header.to_string());
+                headers_string = format!("{}\r\n{}", headers_string, header);
             }
         }
         
