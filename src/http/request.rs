@@ -2,7 +2,7 @@
 mod tests;
 
 use std::fmt;
-use super::header::Header;
+use crate::http::header::Header;
 
 #[derive(Debug)]
 #[allow(dead_code)]
@@ -30,6 +30,12 @@ pub struct Request {
     target: String,
     headers: Vec<Header>,
     body: String,
+}
+
+impl Default for Request {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Request {
@@ -74,6 +80,12 @@ impl Request {
 
 pub struct RequestBuilder {
     request: Request,
+}
+
+impl Default for RequestBuilder {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl RequestBuilder {
