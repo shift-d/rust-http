@@ -3,25 +3,17 @@ use crate::http::request::{
     RequestBuilder,
 };
 
-macro_rules! to_str {
-    ($a:expr) => {
-        {
-            String::from($a)
-        }
-    };
-}
-
 #[test]
 fn request_test() {
     let method = RequestMethod::POST;
-    let target = to_str!("/index.html");
-    let body = to_str!("{}");
+    let target = ("/index.html").to_string();
+    let body = ("{}").to_string();
 
     let req = RequestBuilder::new()
         .set_method(method)
         .set_target(target)
-        .write_header(to_str!("a"), to_str!("b"))
-        .write_header(to_str!("c"), to_str!("d"))
+        .write_header(("a").to_string(), ("b").to_string())
+        .write_header(("c").to_string(), ("d").to_string())
         .write_body(body)
         .get_request();
 
