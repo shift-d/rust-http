@@ -6,7 +6,6 @@ use std::fmt;
 use crate::http::header::Header;
 
 #[derive(Debug)]
-#[allow(dead_code)]
 #[allow(clippy::upper_case_acronyms)]
 pub enum RequestMethod {
     GET,
