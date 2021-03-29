@@ -3,7 +3,7 @@
 mod tests;
 
 use std::fmt;
-use crate::http::header::Header;
+use super::header::Header;
 
 #[derive(Debug)]
 #[allow(clippy::upper_case_acronyms)]
